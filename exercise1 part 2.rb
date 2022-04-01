@@ -1,10 +1,3 @@
-def measurement_increases_from_the_previous_measurement(array)
-  a = array.min
-  unique_array = array.uniq
-  
-  puts unique_array.count { |i| i>a }
-end
-
 measurements = [
  189,
  190,
@@ -2005,7 +1998,51 @@ measurements = [
   6619,
   6627,
   6629,
-  6624,
+  6624
 ]
 
-measurement_increases_from_the_previous_measurement(measurements)
+# in this task, first we need to extract / create multi smaller arrays from the main array (our measurements)
+# each minor array needs to has 3 values
+
+def count_increases_of_three(array)
+
+  # once again we create variable called start with value 0
+  # this variable will give uas the number of times
+  # the sum of measurements in this sliding window increases 
+  # by comparing current sum with previous ones
+  
+  start = 0 
+  previous_measurements_sum = 0
+  current_measurements_sum = 0 
+
+  # we create an arrays of 3 consecutive measurements
+
+  (0..2).each do |i|
+    current_measurements_sum += array[i]
+  end
+
+  # here is our core
+  # once again we create two types of arrays which we can compare themselves
+
+  (3..array.count - 1).each do |i|
+    # we need original one array
+    a = array[i]
+    # and once again values that are pushed by 3 positions backwards
+    b = array[i - 3]
+    # we want to get current mesasurements sum by lining up together the original and pushed one
+    current_measurements_sum = (current_measurements_sum + a) - b 
+
+    if current_measurements_sum > previous_measurements_sum
+      # every time when current m. will be larger than previous one then we want to increase out counter
+      # which is our variable - start
+      start += 1
+    end
+    # here is crucial - we need to the current sum-variable become an older one / previous one
+    previous_measurements_sum = current_measurements_sum
+  end
+
+  puts start
+end
+
+count_increases_of_three(measurements)
+# => 1457
