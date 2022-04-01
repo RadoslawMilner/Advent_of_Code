@@ -2013,7 +2013,7 @@ def count_increases_of_three(array)
   
   start = 0 
   previous_measurements_sum = 0
-  current_measurements_sum = 0 
+  current_measurements_sum = 0
 
   # we create an arrays of 3 consecutive measurements
 
