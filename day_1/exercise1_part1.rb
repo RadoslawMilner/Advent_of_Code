@@ -2010,11 +2010,13 @@ def number_of_measurement_increases_from_the_previous_measurement(array)
   # so we create variable called start with value 0
   start = 0
   
-  # we create an array and we 
-  # we give the number of elements of this array -1 because 
+  # we create an array and
+  # we give the number of elements of this array -1 because
+  # then we will have our array in range 0..1999 (0 is our first ordinal number
+  # so our range is moved back one position
   # thanks to this we will be able to combine a smaller value with a larger one
   
-  a = (0..array.lenght)
+  p a = (0..array.count-1)
   a.each do |i|
     current_measurement = array[i]
     previous_mesurement = array[i - 1]
