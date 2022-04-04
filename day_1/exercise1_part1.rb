@@ -2016,7 +2016,7 @@ def number_of_measurement_increases_from_the_previous_measurement(array)
   # so our range is moved back one position
   # thanks to this we will be able to combine a smaller value with a larger one
   
-  p a = (0..array.count-1)
+  a = (0..array.count-1)
   a.each do |i|
     current_measurement = array[i]
     previous_mesurement = array[i - 1]
