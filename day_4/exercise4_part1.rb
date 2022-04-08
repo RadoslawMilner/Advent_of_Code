@@ -86,11 +86,12 @@ end
 def final_score(random_set_numbers, finished_boards)
   # we need two sets of data: numbers that were find and numbers that didn't
   right_number = []
-
-  random_set_numbers.each do |wrong_number|
+  sum = 0
+  
+  random_set_numbers.each do |nums|
     
     # we need two sets of data: numbers that were find and numbers that didn't
-    right_number.push(wrong_number)
+    right_number.push(nums)
     finished_boards.each do |board|
 
       if rowSearching(board, right_number) or columnSearching(board, right_number)
@@ -100,7 +101,7 @@ def final_score(random_set_numbers, finished_boards)
       sum = (board.flatten - right_number).sum
       end
     end
-    sum * wrong_number
+    sum * right_number.last
   end
 end
 
