@@ -114,20 +114,20 @@ def searching_core(board, right_number, nums)
   if rowSearching(board, right_number) or columnSearching(board, right_number)
     # sum. besides we need flatten, because an Array needs to be converted into Int
     # we want to get rid of the extra brackets to get 1 nice array
-    p sum = (board.flatten - right_number).sum
+    sum = (board.flatten - right_number).sum
   end
   # we must checking if sum is nil. we will getting nil until we don't find right numbers. then we can gain 
   # our unmarked numbers. so... nil is kinda our proxy
   if sum == nil
     return nil
   end
-  p nums
+  
   p sum * nums
 end
 
 bingo_searching_main_core(random_set_numbers, finished_boards)
 # => 28987
-#...umm...wtf - result of example is the same: 4512.
+# result of example is the same: 4512.
 # but when is use my puzzle input, the result is too high
 
 # the resul of course there will muuuch higher that example. just look at the numbers. in the example the numbers don't exceed 30
