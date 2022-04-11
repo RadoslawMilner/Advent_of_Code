@@ -1,5 +1,5 @@
 # readlines is the best: 1. immediately we get array. or readline in case of one line data. 
-# but i see that readlines/readline don't like split. In previous exerc I didn't know it, that we can include it to brackets
+# but i see that readlines/readline don't like split. I don't know that readline/readlines can be put to open method such as optional parameters
 # just as convert to integers with map
 
 data1 = File.open('example.txt', &:readline).split(',').map(&:to_i)
@@ -37,7 +37,7 @@ if data1
       end
     end
     # here we want to add subsequent parts (new-born fish) to our huge array
-    data1 += fish
+    p data1 += fish
   end
   # "In this example, after 18 days, there are a total of 26 fish" = count elements (all-fish = "old" and "new") in array
   p data1.size
@@ -66,24 +66,25 @@ end
 
 # => 351092
 
-# i don't understand concept of this task. it's a simple benchmark test of the device you are working on
+# i don't understand concept of this task. maybe I am wrong, but this look like a simple benchmark test of the device you are working on.
 # if you have powerful device, you will get result in simple way
 # in another case you have modify the code
 # in my case below code DON'T WORK
-if data256
 
-  256.times do
-    fish = []
-    data256.each_index do |i|
-      if data256[i] == 0
-        data256[i] = 6
-        fish.push(8)
-      else
-        data256[i] -= 1
-      end
-    end
-    p data256 += fish
-  end
+# if data256
 
-  p data256.size
-end
+#   256.times do
+#     fish = []
+#     data256.each_index do |i|
+#       if data256[i] == 0
+#         data256[i] = 6
+#         fish.push(8)
+#       else
+#         data256[i] -= 1
+#       end
+#     end
+#     p data256 += fish
+#   end
+
+#   p data256.size
+# end
