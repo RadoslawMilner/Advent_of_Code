@@ -2005,36 +2005,30 @@ measurements = [
 # and then calculate the number of increases in the measurements relative
 # to the previous measurements
 
-def number_of_measurement_increases_from_the_previous_measurement(array)
 
-  # so we create variable called start with value 0
-  start = 0
-  
-  # we create an array and
-  # we give the number of elements of this array -1 because
-  # then we will have our array in range 0..1999 (0 is our first ordinal number
-  # so our range is moved back one position
-  # thanks to this we will be able to combine a smaller value with a larger one
-  
-  a = (0..array.count-1)
-  a.each do |i|
-    current_measurement = array[i]
-    previous_mesurement = array[i - 1]
+# so we create variable called start with value 0
+start = 0
 
-    # we use each because we want to trace all the measurements in the array
-    # we get something like "two arrays" or two groups of integers.
-    # the first one is the original one
-    # the second one is pushed by one backwards
-    # then we want to compare these integers with themselves
+# we create an array and
+# we give the number of elements of this array -1 because
+# then we will have our array in range 0..1999 (0 is our first ordinal number
+# so our range is moved back one position
+# thanks to this we will be able to combine a smaller value with a larger one
 
-    if current_measurement > previous_mesurement
-      start += 1
-    end
+a = (0..measurements.count-1)
+a.each do |measure|
+  current_measurement = measurements[measure]
+  previous_mesurement = measurements[measure - 1]
+  # we use each because we want to trace all the measurements in the array
+  # we get something like "two arrays" or two groups of integers.
+  # the first one is the original one
+  # the second one is pushed by one backwards
+  # then we want to compare these integers with themselves
+  if current_measurement > previous_mesurement
+    start += 1
   end
-  # if current measurement is higher than previous one, then increase by 1 a start which will give us
-  # the number of increases in measurements
-  puts start
 end
-    
-number_of_measurement_increases_from_the_previous_measurement(measurements)
+# if current measurement is higher than previous one, then increase by 1 a start which will give us
+# the number of increases in measurements
+puts start
 # => 1390

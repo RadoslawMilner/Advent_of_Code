@@ -13,61 +13,34 @@ example_or_input = my_puzzle_input
 random_set_numbers = example_or_input[0].split(',').map(&:to_i)
 
 # first after extract our data, we need some fresh boards, when we can operate with them
-def building_boards(example_or_input)
-  # declare variable with array. we want somewhere gather our data = numbers on boards
-  boards = []
-  # because of breaks between set of numbers and boards and if we want to start build from the third
-  # line, we need variable (which will increase) with int 2, because we want to start from third position
-  # set of boards in input, starts in 3rd line
-  line_counter = 2
-  # by comparison length of array with starting point, we can at the same time creating new ones boards
-  # and we have still our break if = break point to stop the loop, because there will be empty lines
-  while example_or_input.length > line_counter
-    # we need to declare 1 board to gather data to this board. then we will push the board data to boards, to have 
-    # all numbers in 1 place
-    board = []
-    # we are doing this 5 times, because we have 5 elements = 5 sets of numbers on each board
-    5.times do
-      # great chain, by using subsequent lines, we have array with string 1 string - split that string to 5 strings with 1 number
-      # map them = change them to array, convert strings to ints.
-      # input them to 1 board
-      board.push(example_or_input[line_counter].split(' ').map(&:to_i))
-      # next line plz ;)
-      line_counter += 1
-    end
-    # put all boards in one board
-    boards.push(board)
-    # next board
-    line_counter += 1
-  end
-  # complete our data
-  boards
-end
+# declare variable with array. we want somewhere gather our data = numbers on boards
 
 # completed boards << boards
 # so it is our start path - here you want to assign name your array, input, data, whatever!
-finished_boards = building_boards(example_or_input)
-
-def bingo_searching_main_core(random_set_numbers, finished_boards)
-  # we need two sets of data: numbers that were find
-  right_number = []
-
-  random_set_numbers.each do |nums|
-    # we need two sets of data: numbers that weren't find
-    right_number.push(nums)
-    # on each our completed ready board
-    finished_boards.each do |board|
-      
-      # we need to check if our value is nil. if we don't we will get a various results. 
-      # these results will be presenting our sums. but we don't want these all sum! we only need that one. that certain. first sum.
-      # first bingo. so we need use nil as a proxy, as a return that don't what to do with it anything.
-      # so, right with the sintax of ruby, we have to assign result of method to variable.
-      # and then return result these variable then, AND ONLY THEN when this variable is our first bingo.
-      # we want to ignore the rest
-      outcome = searching_core(board, right_number, nums)
-      return outcome unless outcome.nil?
-    end
+finished_boards = []
+# because of breaks between set of numbers and boards and if we want to start build from the third
+# line, we need variable (which will increase) with int 2, because we want to start from third position
+# set of boards in input, starts in 3rd line
+line_counter = 2
+# by comparison length of array with starting point, we can at the same time creating new ones boards
+# and we have still our break if = break point to stop the loop, because there will be empty lines
+while example_or_input.count > line_counter
+  # we need to declare 1 board to gather data to this board. then we will push the board data to boards, to have 
+  # all numbers in 1 place
+  board = []
+  # we are doing this 5 times, because we have 5 elements = 5 sets of numbers on each board
+  5.times do
+    # great chain, by using subsequent lines, we have array with string 1 string - split that string to 5 strings with 1 number
+    # map them = change them to array, convert strings to ints.
+    # input them to 1 board
+    board.push(example_or_input[line_counter].split(' ').map(&:to_i))
+    # next line plz ;)
+    line_counter += 1
   end
+  # put all boards in one board
+  finished_boards.push(board)
+  # next board
+  line_counter += 1
 end
 
 def columnSearching(board, right_number)
@@ -125,7 +98,25 @@ def searching_core(board, right_number, nums)
   p sum * nums
 end
 
-bingo_searching_main_core(random_set_numbers, finished_boards)
+# we need two sets of data: numbers that were find
+right_number = []
+random_set_numbers.each do |nums|
+  # we need two sets of data: numbers that weren't find
+  right_number.push(nums)
+  # on each our completed ready board
+  finished_boards.each do |board|
+    
+    # we need to check if our value is nil. if we don't we will get a various results. 
+    # these results will be presenting our sums. but we don't want these all sum! we only need that one. that certain. first sum.
+    # first bingo. so we need use nil as a proxy, as a return that don't what to do with it anything.
+    # so, right with the sintax of ruby, we have to assign result of method to variable.
+    # and then return result these variable then, AND ONLY THEN when this variable is our first bingo.
+    # we want to ignore the rest
+    outcome = searching_core(board, right_number, nums)
+    return outcome unless outcome.nil?
+  end
+end
+
 # => 28987
 # result of example is the same: 4512.
 # but when is use my puzzle input, the result is too high

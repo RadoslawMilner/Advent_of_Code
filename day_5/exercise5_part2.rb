@@ -108,6 +108,6 @@ end
 p grid.flatten.count { |i| i >= 2 }
 
 # the difficulty level actually increases. but there are exception. this exercise, to me, is an exception.
-# this task is easier then the previous ones.
+# this task is easier then the previous ones. maybe not exactly part2
 
 # => 20373
