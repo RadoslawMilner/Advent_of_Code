@@ -1,7 +1,7 @@
 # I leave a choice. If You need files from example go for it
-example_string_array = File.open('example.txt').read
+example_string_array = File.read('example.txt')
 # or use input data
-input_string_array = File.open('input.txt').read
+input_string_array = File.read('input.txt')
 
 data = input_string_array
 
