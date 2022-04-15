@@ -25,7 +25,7 @@ data.each_index do |y|
       # here is lesson for me - brackets don't do anything wrong. If you can use them? Use them. Especially on chains!
       # false is smart way to throw away unwanted results - the way to exclude some results
       # y,x > 0 ; y,x < input.length - 1 = corners
-      # COMPARISONS with neighbotus: [y-1] - up ; [x+1] - right ; [y+1] - down ; [x-1] - left
+      # COMPARISONS with neighbours: [y-1] - up ; [x+1] - right ; [y+1] - down ; [x-1] - left
     when (data[y-1][x] <= data[y][x] and y > 0)
       false
     when ( data[y][x-1] <= data[y][x] and x > 0 )
