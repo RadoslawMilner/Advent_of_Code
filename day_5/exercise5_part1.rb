@@ -5,7 +5,7 @@
 example_array = File.readlines('example.txt').map(&:chomp)
 my_puzzle_input = File.readlines('input.txt').map(&:chomp)
 # here you can input your data. that data will be processed later
-two_dimensional_array = example_array
+two_dimensional_array = my_puzzle_input
 # create empty grid with 0es as values of this grid. this grid has 1000 fields, because none of the input values exceed 1000
 # instead of 0 we could use dots (.). But ruby can't cannot perform the add operation on (.) and 1.
 # Moreover we cannot convert a dot to integer
@@ -48,14 +48,20 @@ two_dimensional_array.each do |l|
   # if first point-y1, will be larger than second point-y2 OR 
   # if first point-y1, will be the same as second point-y2 AND first point-x1 will be larger than second point x2
   # then simply reverse points = globally we set the new rules of inversion which allow us to draw line still forward, not backwards
-  (first_points, second_points = second_points, first_points) if first_points[1] > second_points[1] || (first_points[1] == second_points[1] && first_points[0] > second_points[0])
+  case
+  when first_points[1] > second_points[1]
+    (first_points, second_points = second_points, first_points)
+  when first_points[1] == second_points[1] && first_points[0] > second_points[0]
+    (first_points, second_points = second_points, first_points)
+  end
   x1, y1, x2, y2 = first_points + second_points
 
   # as it happens in the example, position points can repeat = overleap each other.
   # if they do, then we get a horizontal line. or if it will be x1 == x2. 
   # if it happens that y1 != y2 & x1 != x2, then we get a diagonal line.
   # which we don't need according to task content
-  if y1 == y2
+  case
+  when y1 == y2
 
     # we are using range because of task content:
     # "These line segments include the points at both ends. In other words:
@@ -65,9 +71,8 @@ two_dimensional_array.each do |l|
       # we want to move with the grid, one by one - horizontal line with x-es
       grid[y1][x] += 1
     end
-  end
   # repeat proccess as at horizontal lines. here we have verticals. simply replace variables
-  if x1 == x2
+  when x1 == x2
 
     # we are using range because of task content:
     # "These line segments include the points at both ends. In other words:

@@ -48,15 +48,20 @@ two_dimensional_array.each do |l|
   # if first point-y1, will be larger than second point-y2 OR 
   # if first point-y1, will be the same as second point-y2 AND first point-x1 will be larger than second point x2
   # then simply reverse points = globally we set the new rules of inversion which allow us to draw line still forward, not backwards
-  (first_points, second_points = second_points, first_points) if first_points[1] > second_points[1] || (first_points[1] == second_points[1] && first_points[0] > second_points[0])
+  case
+  when first_points[1] > second_points[1]
+    (first_points, second_points = second_points, first_points)
+  when first_points[1] == second_points[1] && first_points[0] > second_points[0]
+    (first_points, second_points = second_points, first_points)
+  end
   x1, y1, x2, y2 = first_points + second_points
 
   # as it happens in the example, position points can repeat = overleap each other.
   # if they do, then we get a horizontal line. or if it will be x1 == x2. 
   # if it happens that y1 != y2 & x1 != x2, then we get a diagonal line.
   # which we don't need according to task content
-  if y1 == y2
-
+  case
+  when y1 == y2
     # we are using range because of task content:
     # "These line segments include the points at both ends. In other words:
     # An entry like 1,1 -> 1,3 covers points 1,1, 1,2, and 1,3.
@@ -67,8 +72,7 @@ two_dimensional_array.each do |l|
     end
   
   # repeat proccess as at horizontal lines. here we have verticals. simply replace variables
-  elsif x1 == x2
-
+  when x1 == x2
     # we are using range because of task content:
     # "These line segments include the points at both ends. In other words:
     # An entry like 1,1 -> 1,3 covers points 1,1, 1,2, and 1,3.
@@ -89,15 +93,15 @@ two_dimensional_array.each do |l|
       # which has coordinates: x1=9, y1=9 ; x2=9, y2=9 => 9,9 ; 9,9
       break if x1 == x2 && y1 == y2
       # if y1 is smaller than y2 then increase non-stop (until condition) point of grid
-      y1 += 1 if y1 < y2
+      if y1 < y2 then y1 += 1 end
       # if y2 is larger...we can draw backwards, but in numerical world, we must decrease value, due to, we draw a line from
       # higher value
-      y1 -= 1 if y2 < y1
+      if y2 < y1 then y1 -= 1 end
        # if x1 is smaller than x2 then increase non-stop (until condition) point of grid
-      x1 += 1 if x1 < x2
+      if x1 < x2 then x1 += 1 end
       # if x2 is larger...we can draw backwards, but in numerical world, we must decrease value, due to, we draw a line from
       # higher value
-      x1 -= 1 if x2 < x1
+      if x2 < x1 then x1 -= 1 end
     end
   end
   # the clue is to reach points 9,9; 9,9 = the end of ...map? let's call it map
