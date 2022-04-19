@@ -1,7 +1,7 @@
 # readlines are must AND let's chomp - get rid of "\n" AND definitely we need seperate characters nad of course we need defined integers
 data1 = File.readlines('example.txt').map(&:chomp).map(&:chars).map { |integer| integer.map(&:to_i) }
 data2 = File.readlines('input.txt').map(&:chomp).map(&:chars).map { |integer| integer.map(&:to_i) }
-data = data1
+data = data2
 
 # part 2 vs 1 = add array to gather coordinates of our "grid"
 coordinates_of_low_points = []
@@ -83,3 +83,5 @@ coordinates_of_low_points.map! do |coords|
 end
 # task content: "Find the three largest basins and multiply their sizes together."
 p coordinates_of_low_points.max(3).inject(:*)
+
+# => 949905

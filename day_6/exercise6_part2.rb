@@ -29,10 +29,10 @@ if data2
     # "A lanternfish that creates a new fish resets its timer to 6, not 7 (because 0 is included as a valid timer value).
     # The new lanternfish starts with an internal timer of 8 and does not start counting down until the next day."
     (1..8).each do |internal_timer|
-      p new_day_array[internal_timer - 1] += old_array[internal_timer]
+      new_day_array[internal_timer - 1] += old_array[internal_timer]
     end
     # put subsequent data to one gathering array
-    p old_array = new_day_array
+    old_array = new_day_array
   end
 # rather than count elements in array (fish), we gather all fish to one basket and sum them (sum values of elements)
 p old_array.sum
