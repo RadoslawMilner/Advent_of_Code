@@ -9,7 +9,7 @@ coordinates_of_low_points = []
 # through each index - y - our row
 data.each_index do |y|
   # through each index - x - our column - [0] - start with each next row
-  data[0].each_index do |x|
+  data.each_index do |x|
     #   0 1 2 3 4 5 6 7 8 9 -- x
     # 0 2 1 9 9 9 4 3 2 1 0
     # 1 3 9 8 7 8 9 4 9 2 1
@@ -26,13 +26,13 @@ data.each_index do |y|
       # y,x > 0 ; y,x < input.size - 1 = corners
       # COMPARISONS with neighbours: [y-1] - up ; [x+1] - right ; [y+1] - down ; [x-1] - left
     when (data[y - 1][x] <= data[y][x] and y > 0)
-      false
+      false # dump it
     when (data[y][x - 1] <= data[y][x] and x > 0)
-      false
+      false # dump it
     when (y < data.size - 1 and data[y + 1][x] <= data[y][x])
-      false
-    when (x < data[0].size - 1 and data[y][x + 1] <= data[y][x])
-      false
+      false # dump it
+    when (x < data.size - 1 and data[y][x + 1] <= data[y][x])
+      false # dump it
       # 5. push finded low points into defined array
     else
       # part 2 vs 1 = add array to gather coordinates of our "grid"
@@ -48,17 +48,17 @@ def basin(data, y, x)
     # present or not present = 0 is not present
     # 9 = checked
   when x < 0
-    0
+    x = 0
   when y < 0
-    0
+    y = 0
     # index because its still our "column" (array of array)
-  when x >= data[0].size
-    0
+  when x >= data.size
+    x = 0
   when y >= data.size
-    0
+    y = 0
   # until we find all 9-s
   when data[y][x] == 9
-    0
+    data = 0
   else
   # and again 9 = point in next call is to map data to 9.
     data[y][x] = 9
@@ -79,7 +79,7 @@ coordinates_of_low_points.map! do |coords|
 # key basin => lowest points of basins / coords y => value y / coords x => value x
 # as in...previous exercises I thought and wanted to attach above defined method to this mapping
 # but using multi hashes in array is confortable. and method gladly accepts input and converts it
-  p coords[:basin] = basin(data, coords[:y], coords[:x])
+  coords[:basin] = basin(data, coords[:y], coords[:x])
 end
 # task content: "Find the three largest basins and multiply their sizes together."
 p coordinates_of_low_points.max(3).inject(:*)

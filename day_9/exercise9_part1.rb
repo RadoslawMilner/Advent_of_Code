@@ -10,7 +10,7 @@ risk_level_of_low_points = []
 # through each index - y - our row
 data.each_index do |y|
   # through each index - x - our column - [0] - start with each next row
-  data[0].each_index do |x|
+  data.each_index do |x|
     #   0 1 2 3 4 5 6 7 8 9 -- x
     # 0 2 1 9 9 9 4 3 2 1 0
     # 1 3 9 8 7 8 9 4 9 2 1
@@ -32,7 +32,7 @@ data.each_index do |y|
       false
     when ( y < data.length - 1 and data[y+1][x] <= data[y][x] )
       false
-    when ( x < data[0].length - 1 and data[y][x+1] <= data[y][x] )
+    when ( x < data.length - 1 and data[y][x+1] <= data[y][x] )
       false
       # 5. push finded low points into defined array
     else
