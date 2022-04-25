@@ -39,10 +39,6 @@ end
 coords.map! do |i|
   [i[0].to_i, i[1].to_i]
 end
-# wow. just wow. i was stucked because i didn't put extra brackets around fold instructions (array)
-# just take last element of instruction array = y and in which line to fold up
-# put it safely tu variable
-
 # iterate through folding range for BOTH axes to transfer/fold dots on the other side up
 fold_instruction.each do |folding_range|
   case
@@ -92,7 +88,6 @@ board = []
   # proxy ...i just need each. not need for argument
     board << ('.' * coords.max.first)
 end
-
 # draw result by using '#' according to task
 coords.each do |coord|
   # coord.last = y, coord.first = x
