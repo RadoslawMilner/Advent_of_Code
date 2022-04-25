@@ -45,7 +45,6 @@ end
 fold_paper_up = [fold_instruction[0]]
 # iterate through folding range for BOTH axes to transfer/fold dots on the other side up
 fold_paper_up.each do |folding_range|
-  distance = folding_range[1]
   case
   # when axis is x
   when folding_range[0] == 'x'
