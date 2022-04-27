@@ -1,81 +1,80 @@
-# on start we only want lines and deleted enters ('\n')
-# task content: "Find and discard the corrupted lines first."
-# we in next step we will use each on each line
-# then on those each lines, we will extract separate characters
-# by this way we get separate chars
-# if we had use chars here, in readlines, we would get array of separate chars
+# Due to wrong result of previous code (example was the same, but result of input was wrong)
+# I have to rebuild my code
+# get data, parse data, remove '\n'
 data1 = File.readlines('example.txt').map(&:chomp)
 data2 = File.readlines('input.txt').map(&:chomp)
 data = data2
-# declare middle score array to have place, to get total score
-middle_score = []
-# task content: 
-# "Now, discard the corrupted lines. The remaining lines are incomplete."
-data.each do |line|
-  # build array to get results of building open chunks. According to task:
-  sequence_of_closin_characters = []
-  # "Every chunk must open and close with one of four legal pairs of matching characters:
-  #
-  #  If a chunk opens with (, it must close with ).
-  #  If a chunk opens with [, it must close with ].
-  #  If a chunk opens with {, it must close with }.
-  #  If a chunk opens with <, it must close with >.""
-  line.chars.each do |chars|
-    case chars
+
+# define 1st method
+# search and remove corrupted lines to get only incomplete lines
+# this method is a core of this task
+# this task is a traning of parsing / filtring / searching specific data
+def corrupted?(data)
+  # define array to gather incomplete lines
+  p incorrupted = []
+  # i tried to convert chars on first - on readlines
+  # when we do each/map with data and then convert them to chars and on chars do each
+  # we can get nicely one parsed data
+  # so extract each chonk, according to task
+  data.chars.each do |chonk|
+    case chonk
+      # when the opening chunk shows up, push the closing counterpart into our empty array to the beginning of this array
     when '('
-      sequence_of_closin_characters << chars
+      p incorrupted.prepend(')')
     when '['
-      sequence_of_closin_characters << chars
+      p incorrupted.prepend(']')
     when '{'
-      sequence_of_closin_characters << chars
+      p incorrupted.prepend('}')
     when '<'
-      sequence_of_closin_characters << chars
-    else
-      # remove last one and return it to...
-      sequence_of_closin_characters.pop
-      # use it in next step - score points in autocomplete tools contest
+      p incorrupted.prepend('>')
+      # here we check the closing chunks to see if they match - is it the same match for the opener?
+      # when comes the closing chunk, is our first chunk in our array equal to the closing chunk?
+      # if so, remove it from the set (our array) = it's a proxy
+      # if not, there is a wrong closing chonk - proving it is a corrupted line
+    when ')'
+      p incorrupted.first == ')' ? incorrupted.delete_at(0) : (return "corrupted line")
+    when ']'
+      p incorrupted.first == ']' ? incorrupted.delete_at(0) : (return "corrupted line")
+    when '}'
+      p incorrupted.first == '}' ? incorrupted.delete_at(0) : (return "corrupted line")
+    when '>'
+      p incorrupted.first == '>' ? incorrupted.delete_at(0) : (return "corrupted line")
     end
   end
-  #  task content: "start with a total score of 0.
+  # return filtered data
+  p incorrupted
+end
+
+data.map! do |data|
+  # map through method
+  corrupted?(data)
+end
+# remove unnecessary corrupted lines
+p data.delete("corrupted line")
+
+# count the score according to task
+# "Start with a total score of 0.
+# Multiply the total score by 5 to get 0, then add the value of ] (2) to get a new total score of 2.
+# Multiply the total score by 5 to get 10, then add the value of ) (1) to get a new total score of 11.
+# Multiply the total score by 5 to get 55, then add the value of } (3) to get a new total score of 58.
+# Multiply the total score by 5 to get 290, then add the value of > (4) to get a new total score of 294."
+data.map! do |data|
   total_score = 0
-  # Then, for each character, multiply the total score by 5 and 
-  # then increase the total score by the point value given for the character in the following table:
-  # each backwards, because we go from closing brackets to opening ones
-  # it's a hack. it's simpler
-  sequence_of_closin_characters.reverse_each do |chars|
-    case chars
-      # ): 1 point.
-      # ]: 2 points.
-      # }: 3 points.
-      # >: 4 points."
-    when '('
-      # task content: 
-      # "So, the last completion string above - ])}> - would be scored as follows:
-      # Start with a total score of 0.
-      # Multiply the total score by 5 to get 0, then add the value of ] (2) to get a new total score of 2.
-      # Multiply the total score by 5 to get 10, then add the value of ) (1) to get a new total score of 11.
-      # Multiply the total score by 5 to get 55, then add the value of } (3) to get a new total score of 58.
-      # Multiply the total score by 5 to get 290, then add the value of > (4) to get a new total score of 294."
+  data.each do |chonk|
+    case chonk
+    when ')'
       total_score = total_score * 5 + 1
-    when '['
+    when ']'
       total_score = total_score * 5 + 2
-    when '{'
+    when '}'
       total_score = total_score * 5 + 3
-    when '<'
+    when '>'
       total_score = total_score * 5 + 4
     end
   end
-  # push completion strings that have total scores to array to in order to go to the next element of the task
-  middle_score << total_score
+  # return the score
+  total_score
 end
-# task content: "Autocomplete tools are an odd bunch: the winner is found by sorting all of the scores and then taking the middle score.
-#                Find the completion string for each incomplete line, score the completion strings, and sort the scores. 
-#                What is the middle score?"
-p middle_score.sort![middle_score.size / 2]
-# result of example: 288957
 
-# => 1829685989
-# "That's not the right answer; your answer is too low.
-# If you're stuck, make sure you're using the full input data; 
-# there are also some general tips on the about page, or you can ask for hints on the subreddit. 
-# Please wait one minute before trying again. (You guessed 1829685989.) [Return to Day 10]"
+p data.sort[data.size/2]
+# => 2116639949

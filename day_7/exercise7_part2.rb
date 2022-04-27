@@ -1,3 +1,5 @@
+# Due to wrong copy-paste input I got wrong result (example was the same, but result of input was wrong)
+# input had been pasted correctly and now its good to go
 # read file, remove commas, map to integers
 data1 = File.read('example.txt').split(',').map(&:to_i)
 data2 = File.read('input.txt').split(',').map(&:to_i)
